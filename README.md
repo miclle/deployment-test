@@ -1,15 +1,19 @@
 # deployment-test
 
-用于验证 LAS 一键部署流程的 demo 仓库。
+用于验证 LAS 一键部署流程的最小 Go HTTP 服务。
 
 ## 本地运行
 
-执行 npm ci 安装依赖，再执行 npm run dev 启动开发服务器。
+```bash
+go run .
+```
+
+服务默认监听 `4173` 端口，也可以通过 `PORT` 环境变量覆盖。
 
 ## 部署配置
 
-- 配置文件：.qiniu/deploy.yaml
+- 配置文件：`.qiniu/deploy.yaml`
 - 工作目录：仓库根目录
-- 安装命令：npm ci && npm run build
-- 启动命令：npm run start
-- 端口：4173
+- 安装命令：`go build -o deployment-test .`
+- 启动命令：`./deployment-test`
+- 端口：`4173`

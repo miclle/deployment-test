@@ -1,7 +1,7 @@
 version: 1
 workingDirectory: .
-installCommand: npm ci && npm run build
-startCommand: npm run start
+installCommand: go build -o deployment-test .
+startCommand: ./deployment-test
 port: 4173
 healthcheck:
   path: /
