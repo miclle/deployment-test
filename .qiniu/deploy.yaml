@@ -1,6 +1,20 @@
 version: 1
 workingDirectory: .
-installCommand: go build -o deployment-test .
+installCommand: |
+  set -eu
+  go_version=1.24.6
+  case "$(uname -m)" in
+    x86_64) go_arch=amd64; go_sha256=bbca37cc395c974ffa4893ee35819ad23ebb27426df87af92e93a9ec66ef8712 ;;
+    aarch64|arm64) go_arch=arm64; go_sha256=124ea6033a8bf98aa9fbab53e58d134905262d45a022af3a90b73320f3c3afd5 ;;
+    *) echo "unsupported architecture: $(uname -m)" >&2; exit 1 ;;
+  esac
+  curl -fsSL "https://go.dev/dl/go${go_version}.linux-${go_arch}.tar.gz" -o go-toolchain.tar.gz
+  echo "${go_sha256}  go-toolchain.tar.gz" | sha256sum -c -
+  rm -rf .go-toolchain
+  mkdir .go-toolchain
+  tar -C .go-toolchain --strip-components=1 -xzf go-toolchain.tar.gz
+  rm go-toolchain.tar.gz
+  ./.go-toolchain/bin/go build -o deployment-test .
 startCommand: ./deployment-test
 port: 4173
 healthcheck:

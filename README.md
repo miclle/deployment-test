@@ -14,6 +14,6 @@ go run .
 
 - 配置文件：`.qiniu/deploy.yaml`
 - 工作目录：仓库根目录
-- 安装命令：`go build -o deployment-test .`
+- 安装命令：下载并校验 Go 1.24.6 工具链，然后执行 `go build -o deployment-test .`
 - 启动命令：`./deployment-test`
 - 端口：`4173`
